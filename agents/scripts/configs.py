@@ -61,12 +61,28 @@ def pendulum():
   """Configuration for the pendulum classic control task."""
   locals().update(default())
   # Environment
-  env = 'Pendulum-v0'
+  policy_layers = 100, 50  # 200, 100
+  value_layers = 100, 50  # 200, 100
   max_length = 200
   steps = 1e6  # 1M
   # Optimization
   batch_size = 20
   chunk_length = 50
+  return locals()
+
+def mario():
+  # python -m agents.scripts.train --logdir=. --config=mario
+  locals().update(default())
+  network = networks.feed_forward_categorical
+  env = 'SuperMarioKart-Snes'
+  # Environment
+  max_length = 200
+  steps = 1e6  # 1M
+  # Optimization
+  batch_size = 20
+  chunk_length = 50
+  policy_layers = 10, 6
+  value_layers = 10, 6
   return locals()
 
 

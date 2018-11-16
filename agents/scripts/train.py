@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# python -m agents.scripts.train --logdir=. --config=mario
 
 r"""Script to train a batch reinforcement learning algorithm.
 
@@ -33,6 +34,8 @@ from agents import tools
 from agents.scripts import configs
 from agents.scripts import utility
 
+from mario_kart_wrapper import MarioKartWrapper
+
 
 def _create_environment(config):
   """Constructor for an instance of the environment.
@@ -47,7 +50,10 @@ def _create_environment(config):
     Wrapped OpenAI Gym environment.
   """
   if isinstance(config.env, str):
-    env = gym.make(config.env)
+    #env = gym.make(config.env)
+    env = MarioKartWrapper(MarioKartWrapper.create())
+    #print(env.action_space)
+    #print(type(env.action_space))
   else:
     env = config.env()
   if config.max_length:
