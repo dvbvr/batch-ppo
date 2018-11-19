@@ -76,13 +76,15 @@ def mario():
   network = networks.feed_forward_categorical
   env = 'SuperMarioKart-Snes'
   # Environment
+  policy_layers = 100, 50
+  value_layers = 100, 50
   max_length = 200
   steps = 1e6  # 1M
   # Optimization
   batch_size = 20
   chunk_length = 50
-  policy_layers = 10, 6
-  value_layers = 10, 6
+  normalize_ranges = False
+  use_gpu = True
   return locals()
 
 

@@ -2,6 +2,14 @@ import numpy as np
 import retro
 import gym
 
+class ScreenFrame:
+    def __init__(self, min=0, max=255, h=104, w=255, c=3):
+        self.min = min
+        self.max = max
+        self.h = h
+        self.w = w
+        self.c = c
+
 
 class MarioKartWrapper(gym.Wrapper):
     def __init__(self, env):
@@ -16,22 +24,12 @@ class MarioKartWrapper(gym.Wrapper):
             self._actions.append(arr)
         self.action_space = gym.spaces.Discrete(len(self._actions))
 
-        self.obs_shape = (104, 256, 3)
-        # print('?'*50)
-        # print(self.observation_space)
-        # If one uses images as input for OpenAI it is not enough to
-        # just crop the image the observation_space var also needs to be changed.
-        # An example taken from a fixed issue in the OpenAI forums is:
-        # Box(0, 255, [height, width, 3]) for RGB pixels)
-        self._c_chan = 3
-        self._c_chan_min = 0
-        self._colors_channel_max = 255
-        self._agent_obs_res_height = 104
-        self._agent_obs_res_width = 255
+        self.obs_shape = (104, 255, 3)
+        self.frame = ScreenFrame()
         self.observation_space = gym.spaces.Box(
-            self._c_chan_min, self._colors_channel_max,
-            [self._agent_obs_res_height, self._agent_obs_res_width,
-            self._c_chan]) #(104, 256, 3)
+            low=self.frame.min, high=self.frame.max, shape=[self.frame.h, self.frame.w, self.frame.c], dtype=np.float32)  #(104, 256, 3)
+        # self.observation_space = gym.spaces.Box(
+        #     low=self.frame.min, high=self.frame.max, [self.frame.h, self.frame.w, self.frame.c])  #(104, 256, 3)
         self.viewer = None
         self.states_dict = {
             'cc':   ['50', '100'],

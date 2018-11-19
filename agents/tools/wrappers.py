@@ -244,6 +244,10 @@ class RangeNormalize(object):
     return action
 
   def _normalize_observ(self, observ):
+    print('='*60)
+    print(observ)
+    print(type(observ))
+    return -1
     min_ = self._env.observation_space.low
     max_ = self._env.observation_space.high
     observ = 2 * (observ - min_) / (max_ - min_) - 1

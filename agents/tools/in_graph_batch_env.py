@@ -38,10 +38,15 @@ class InGraphBatchEnv(object):
     """
     self._batch_env = batch_env
     batch_dims = (len(self._batch_env),)
+    print('*~*' * 60)
     observ_shape = self._parse_shape(self._batch_env.observation_space)
+    print(observ_shape)
     observ_dtype = self._parse_dtype(self._batch_env.observation_space)
+    print(observ_dtype)
     action_shape = self._parse_shape(self._batch_env.action_space)
+    print(action_shape)
     action_dtype = self._parse_dtype(self._batch_env.action_space)
+    print(action_dtype)
     with tf.variable_scope('env_temporary'):
       self._observ = tf.Variable(
           lambda: tf.zeros(batch_dims + observ_shape, observ_dtype),

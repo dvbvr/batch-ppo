@@ -52,8 +52,11 @@ def _create_environment(config):
   if isinstance(config.env, str):
     #env = gym.make(config.env)
     env = MarioKartWrapper(MarioKartWrapper.create())
-    #print(env.action_space)
-    #print(type(env.action_space))
+    print('=' * 60)
+    print(env.observation_space)
+    print(type(env.observation_space))
+    print(env.observation_space.dtype)
+    print(env.observation_space.shape)
   else:
     env = config.env()
   if config.max_length:
